@@ -10,4 +10,5 @@
     <string name="add">Add</string>
     <string name="done">Done</string>
     <string name="dltliquor">Delete this liquor.</string>
+    <string name="add_description">Add new liquor.</string>
 </resources>
