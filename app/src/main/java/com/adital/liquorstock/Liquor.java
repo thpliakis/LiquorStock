@@ -1,5 +1,12 @@
 package com.adital.liquorstock;
 
+/**
+ * Models general liqueurs.
+ *
+ * @author Thomas Pliakis
+ * @version 1.0
+ * @since 2023-07-23
+ */
 public class Liquor {
 
     // name and image id

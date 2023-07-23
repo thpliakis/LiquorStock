@@ -13,6 +13,13 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * Liquor adapter.
+ *
+ * @author Thomas Pliakis
+ * @version 1.0
+ * @since 2023-07-23
+ */
 public class LiquorAdapter extends ArrayAdapter<Liquor> {
     public LiquorAdapter(@NonNull Context context, ArrayList<Liquor> liquorArrayList) {
         super(context,0, liquorArrayList);

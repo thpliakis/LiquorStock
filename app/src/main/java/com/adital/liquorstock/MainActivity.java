@@ -11,6 +11,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * Mainactivity for the app
+ *
+ * @author Thomas Pliakis
+ * @version 1.0
+ * @since 2023-07-23
+ */
 public class MainActivity extends AppCompatActivity {
 
     private GridView liquorsGV;
