@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">LiquorStock</string>
+    <string name="liquorName">Name</string>
+    <string name="LiquorQuantity">Quantity</string>
+    <string name="confdltquery">Are you sure you want to delete liquor?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="maxStock">Maximum Stock</string>
+    <string name="curStock">Current Stock</string>
+    <string name="add">Add</string>
+    <string name="done">Done</string>
+    <string name="dltliquor">Delete this liquor.</string>
+</resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/liquorListCell">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="104dp"
+            android:layout_height="77dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="84dp"
+            android:layout_toStartOf="@+id/liquorName"
+            app:srcCompat="@drawable/ic_beer" />
+
+        <TextView
+            android:id="@+id/liquorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/liquorName" />
+
+        <TextView
+            android:id="@+id/liquorQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="59dp"
+            android:layout_marginEnd="59dp"
+            android:layout_toEndOf="@+id/liquorName"
+            android:text="@string/LiquorQuantity" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
