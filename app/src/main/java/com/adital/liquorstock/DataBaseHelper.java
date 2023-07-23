@@ -2,10 +2,14 @@ package com.adital.liquorstock;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Helper to handle my database.
@@ -54,9 +58,42 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         long insert = db.insert(LIQUOR_TABLE ,null, cv);
 
         if(insert == -1){
+            db.close();
             return false;
         }else {
+            db.close();
             return true;
         }
+    }
+
+    public List<LiquorModel> getLiquorList(String liquorType){
+        List<LiquorModel> returnList = new ArrayList<>();
+
+        String querryString = "SELECT * FROM " + LIQUOR_TABLE + " WHERE " + COLUMN_LIQUOR_TYPE + "=" + liquorType;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(querryString, null);
+
+        if(cursor.moveToFirst()){
+            //loop through the results and put them in a list
+            do{
+                int liquorID = cursor.getInt(0);
+                String liquorName = cursor.getString(1);
+                String liquorCursorType = cursor.getString(2);
+                int mq = cursor.getInt(3);
+                int cq = cursor.getInt(4);
+
+                LiquorModel newLiquor = new LiquorModel(liquorID, liquorName, liquorCursorType, mq, cq);
+                returnList.add(newLiquor);
+
+            }while (cursor.moveToNext());
+        }else {
+            // failure, do not add anything to the list
+        }
+
+        // close cursor and databse
+        cursor.close();
+        db.close();
+        return returnList;
     }
 }

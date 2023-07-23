@@ -70,7 +70,7 @@ public class LiquorActivity extends AppCompatActivity {
 
         popupWindow.showAtLocation(lAct_parent, Gravity.CENTER,0,0);
 
-        // TODO functionalities of textView and editView
+        // TODO functionalities of textViews and editViews
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
