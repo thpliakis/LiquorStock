@@ -11,15 +11,25 @@ public class LiquorModel {
 
     private int id;
     private String name;
+    private String liquorType;
     private int maxQuantity;
     private int curQuantity;
 
-    public LiquorModel(int id, String name, int maxQuantity, int curQuantity) {
+    public LiquorModel(int id, String name, String liquorType, int maxQuantity, int curQuantity) {
         this.id = id;
         this.name = name;
+        this.liquorType = liquorType;
         this.maxQuantity = maxQuantity;
         this.curQuantity = curQuantity;
     }
+
+    public LiquorModel(String name,String liquorType) {
+        this.name = name;
+        this.liquorType = liquorType;
+        this.id = 0;
+        this.maxQuantity = 0;
+       this.curQuantity = 0;
+     }
 
     @Override
     public String toString() {
@@ -33,6 +43,14 @@ public class LiquorModel {
 
     public int getId() {
         return id;
+    }
+
+    public String getLiquorType() {
+        return liquorType;
+    }
+
+    public void setLiquorType(String liquorType) {
+        this.liquorType = liquorType;
     }
 
     public void setId(int id) {

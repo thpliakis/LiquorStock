@@ -3,6 +3,7 @@ package com.adital.liquorstock;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,15 +31,15 @@ public class MainActivity extends AppCompatActivity {
 
         liquorsGV = findViewById(R.id.idliquorsGV);
 
-        liquorArrayList.add(new Liquor("Beer", R.drawable.ic_beer));
-        liquorArrayList.add(new Liquor("Gin", R.drawable.ic_gin));
-        liquorArrayList.add(new Liquor("Champagne", R.drawable.ic_champagne));
-        liquorArrayList.add(new Liquor("Rum", R.drawable.ic_rum));
-        liquorArrayList.add(new Liquor("Vermouth", R.drawable.ic_vermouth));
-        liquorArrayList.add(new Liquor("Tequila", R.drawable.ic_tequila));
-        liquorArrayList.add(new Liquor("Wine", R.drawable.ic_wine));
-        liquorArrayList.add(new Liquor("Whiskey", R.drawable.ic_whiskey));
-        liquorArrayList.add(new Liquor("Vodka", R.drawable.ic_vodka));
+        liquorArrayList.add(new Liquor("Beer", R.drawable.ic_beer,1));
+        liquorArrayList.add(new Liquor("Gin", R.drawable.ic_gin,2));
+        liquorArrayList.add(new Liquor("Champagne", R.drawable.ic_champagne,3));
+        liquorArrayList.add(new Liquor("Rum", R.drawable.ic_rum,4));
+        liquorArrayList.add(new Liquor("Vermouth", R.drawable.ic_vermouth,5));
+        liquorArrayList.add(new Liquor("Tequila", R.drawable.ic_tequila,6));
+        liquorArrayList.add(new Liquor("Wine", R.drawable.ic_wine,7));
+        liquorArrayList.add(new Liquor("Whiskey", R.drawable.ic_whiskey,8));
+        liquorArrayList.add(new Liquor("Vodka", R.drawable.ic_vodka,9));
 
 
         LiquorAdapter adapter = new LiquorAdapter(this, liquorArrayList);
@@ -49,7 +50,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 /* Todo navigate user to liquor activity */
                 //liquorsGV.get
-                Toast.makeText(MainActivity.this ,"Hello world " + adapter.getItem(i).getLiquor_name(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivity.this ,"Hello world " + adapter.getItem(i).getLiquor_name(),Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, LiquorActivity.class);
+                intent.putExtra("liquorType", adapter.getItem(i).getId());
+                startActivity(intent);
             }
         });
 

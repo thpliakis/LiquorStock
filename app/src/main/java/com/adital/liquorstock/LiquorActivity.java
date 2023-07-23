@@ -13,6 +13,7 @@ import android.widget.ListView;
  * @version 1.0
  * @since 2023-07-23
  */
+
 public class LiquorActivity extends AppCompatActivity {
 
     private ListView liquorslistLW;
@@ -26,7 +27,11 @@ public class LiquorActivity extends AppCompatActivity {
         liquorslistLW = findViewById(R.id.liquorsList);
         addBtn = findViewById(R.id.addbtn);
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String value = extras.getString("liquorType");
+        }
 
-
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(LiquorActivity.this);
     }
 }

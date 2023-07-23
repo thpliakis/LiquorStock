@@ -12,11 +12,14 @@ public class Liquor {
     // name and image id
     private String liquor_name;
     private int img_id;
+    private int id;
+
 
     // Constructor
-    public Liquor(String liquor_name, int img_id) {
+    public Liquor(String liquor_name, int img_id, int id) {
         this.liquor_name = liquor_name;
         this.img_id = img_id;
+        this.id = id;
     }
 
 
@@ -35,5 +38,13 @@ public class Liquor {
 
     public void setImg_id(int img_id) {
         this.img_id = img_id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
