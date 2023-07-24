@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -39,22 +40,30 @@ public class LiquorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liquor);
 
-        lAct_parent = findViewById(R.id.lAct_parent);
-        liquorslistLW = findViewById(R.id.liquorsList);
-        addBtn = findViewById(R.id.addbtn);
-
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             liquorType = extras.getString("liquorType");
         }
 
+        TextView liqBar = findViewById(R.id.liquorsBar);
+        liqBar.setText(liquorType);
+        lAct_parent = findViewById(R.id.lAct_parent);
+        liquorslistLW = findViewById(R.id.liquorsList);
+        addBtn = findViewById(R.id.addbtn);
+
+
         // Fetch the list of liqueurs
         dataBaseHelper = new DataBaseHelper(LiquorActivity.this);
+        try{
+            // Adapter for listView
+            showLiqueursOnListView(LiquorActivity.this); // Show listView with liquorListAdapter
+        }catch (Exception e){
+            Toast.makeText(LiquorActivity.this, "something is wrong", Toast.LENGTH_SHORT).show();
+        }
 
-        // Adapter for listView
-        showLiqueursOnListView(this); // Show listView with liquorListAdapter
 
         // Clicking on a item in the list.
+        /*
         liquorslistLW.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -62,18 +71,24 @@ public class LiquorActivity extends AppCompatActivity {
                 showLiqueursOnListView(LiquorActivity.this);
             }
         });
+        */
 
         // TODO addbtn onclicklistener to add liqueurs on database
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupWindowAddBtn();
-                showLiqueursOnListView(LiquorActivity.this);
+                try {
+                    Toast.makeText(LiquorActivity.this, liquorType, Toast.LENGTH_LONG).show();
+                }catch (Exception e){
+
+                    Toast.makeText(LiquorActivity.this, "something is wrong", Toast.LENGTH_LONG).show();
+                }
+                //showPopupWindowAddBtn();
+                //showLiqueursOnListView(LiquorActivity.this);
             }
         });
 
         // TODO create adapter for liquor item list view 1:15 in video
-
 
     }
 

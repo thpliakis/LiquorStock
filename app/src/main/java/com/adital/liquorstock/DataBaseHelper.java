@@ -39,6 +39,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String createTableStatement = "CREATE TABLE " + LIQUOR_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_LIQUOR_NAME + " TEXT, " + COLUMN_LIQUOR_TYPE + " TEXT, " + COLUMN_MAX_NUMOFBOTTLES + " INT, " + COLUMN_CUR_NUMOFBOTTLES + " INT, " + COLUMN_PERCENT + " INT)";
 
         sqLiteDatabase.execSQL(createTableStatement);
+        addLiquorItem(new LiquorModel("Vergina","Beer"));
     }
 
     // This method is called if the database versiuon  number changes. It prevents previous users apps from breaking when you change the database design.
