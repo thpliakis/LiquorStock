@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -32,6 +33,7 @@ public class LiquorActivity extends AppCompatActivity {
     private ListView liquorslistLW;
     private ImageButton addBtn;
     private  String liquorType;
+    private TextView barname;
     LiquorListAdapter adapter;
     DataBaseHelper dataBaseHelper;
     @Override
@@ -40,19 +42,28 @@ public class LiquorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_liquor);
 
         lAct_parent = findViewById(R.id.lAct_parent);
-        liquorslistLW = findViewById(R.id.liquorsList);
-        addBtn = findViewById(R.id.addbtn);
+        //liquorslistLW = findViewById(R.id.liquorsList);
+        //addBtn = findViewById(R.id.addbtn);
+        barname.findViewById(R.id.liquorsBar);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             liquorType = extras.getString("liquorType");
         }
 
+        barname.setText(liquorType);
+        /*
         // Fetch the list of liqueurs
         dataBaseHelper = new DataBaseHelper(LiquorActivity.this);
 
         // Adapter for listView
-        showLiqueursOnListView(this); // Show listView with liquorListAdapter
+        try {
+
+            showLiqueursOnListView(this); // Show listView with liquorListAdapter
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
+        }
+
 
         // Clicking on a item in the list.
         liquorslistLW.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -74,13 +85,14 @@ public class LiquorActivity extends AppCompatActivity {
 
         // TODO create adapter for liquor item list view 1:15 in video
 
-
+*/
     }
-
+    /*
     private void showLiqueursOnListView(LiquorActivity context) {
         adapter = new LiquorListAdapter(context, dataBaseHelper.getLiquorList(liquorType));
         liquorslistLW.setAdapter(adapter);
     }
+
 
     private void showPopupWindowListItem(int i) {
         View view = View.inflate(this, R.layout.liquor_popup,null);
@@ -109,11 +121,11 @@ public class LiquorActivity extends AppCompatActivity {
 
         // TODO notify changes
 
-        int ems = parseInt(edtMaxStock.getText().toString());
-        int ecs = parseInt(edtCurStock.getText().toString());
+        //int ems = parseInt(edtMaxStock.getText().toString());
+        //int ecs = parseInt(edtCurStock.getText().toString());
 
-        edtMaxStock.setHint(ems);
-        edtCurStock.setHint(ecs);
+        //edtMaxStock.setHint(ems);
+        //edtCurStock.setHint(ecs);
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +142,7 @@ public class LiquorActivity extends AppCompatActivity {
                 showPopupWindowConfirmation();
             }
         });
-         */
+
     }
 
     // I made this method because i want to pass i to setOnClickListener, which is the position of the liquorModel in the listView
@@ -161,7 +173,7 @@ public class LiquorActivity extends AppCompatActivity {
         y.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dataBaseHelper.deleteLiquor(adapter.getItem(i));
+                //dataBaseHelper.deleteLiquor(adapter.getItem(i));
                 popupWindow.dismiss();
             }
         });
@@ -185,7 +197,7 @@ public class LiquorActivity extends AppCompatActivity {
         Button add = view.findViewById(R.id.addbtn2);
 
 
-        String liqName = edtname.getText().toString();
+
         int maxNB = parseInt(edtmaxNumOfB.getText().toString());
         int curNB = parseInt(edtCurOfB.getText().toString());
 
@@ -198,14 +210,14 @@ public class LiquorActivity extends AppCompatActivity {
         popupWindow.showAtLocation(lAct_parent, Gravity.CENTER,0,0);
 
         // TODO notify changes?
-
+        //String liqName = edtname.getText().toString();
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO add entry to database
-                dataBaseHelper.addLiquorItem(new LiquorModel(liqName, liquorType));
+                //dataBaseHelper.addLiquorItem(new LiquorModel(liqName, liquorType));
                 popupWindow.dismiss();
             }
         });
-    }
+    }*/
 }
