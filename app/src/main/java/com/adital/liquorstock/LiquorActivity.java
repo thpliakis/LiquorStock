@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 
 /**
  * Liquor activity.
@@ -56,7 +58,11 @@ public class LiquorActivity extends AppCompatActivity {
         dataBaseHelper = new DataBaseHelper(LiquorActivity.this);
         try{
             // Adapter for listView
-            showLiqueursOnListView(LiquorActivity.this); // Show listView with liquorListAdapter
+            //adapter = new LiquorListAdapter(this, dataBaseHelper.getLiquorList(liquorType));
+            //liquorslistLW.setAdapter(adapter);
+            //showLiqueursOnListView(LiquorActivity.this); // Show listView with liquorListAdapter
+            Toast.makeText(LiquorActivity.this, dataBaseHelper.getLiquorList(liquorType).toString(), Toast.LENGTH_SHORT).show();
+
         }catch (Exception e){
             Toast.makeText(LiquorActivity.this, "something is wrong", Toast.LENGTH_SHORT).show();
         }
