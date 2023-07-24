@@ -98,4 +98,23 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
         return returnList;
     }
+
+    public boolean deleteLiquor(LiquorModel liquorModel){
+        // Find liquorModel in the database, if found delete and return true.
+        // if it is not found, return false.
+
+        SQLiteDatabase db = getWritableDatabase();
+        String queryString = "DELETE FROM " + LIQUOR_TABLE + " WHERE " + COLUMN_ID + " = " + liquorModel.getId();
+
+        Cursor cursor = db.rawQuery(queryString,null);
+
+        if(cursor.moveToFirst()){
+            db.close();
+            return true;
+        }else {
+            db.close();
+            return false;
+        }
+
+    }
 }
