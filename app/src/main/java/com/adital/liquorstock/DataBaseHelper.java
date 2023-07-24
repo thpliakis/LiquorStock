@@ -24,9 +24,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String LIQUOR_TABLE = "LIQUOR_TABLE";
     public static final String COLUMN_LIQUOR_NAME = "LIQUOR_NAME";
     public static final String COLUMN_LIQUOR_TYPE = "LIQUOR_TYPE";
-    public static final String COLUMN_MAX_QUANTITY = "MAX_QUANTITY";
-    public static final String COLUMN_CUR_QUANTITY = "CUR_QUANTITY";
+    public static final String COLUMN_MAX_NUMOFBOTTLES = "MAX_NUMOFBOTTLES";
+    public static final String COLUMN_CUR_NUMOFBOTTLES = "CUR_NUMOFBOTTLES";
     public static final String COLUMN_ID = "ID";
+    public static final String COLUMN_PERCENT = "PERCENT";
 
     public DataBaseHelper(@Nullable Context context) {
         super(context, "liquor.db", null, 1);
@@ -35,7 +36,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     // This method is called the first time the database is accessed. There should be code to create a new database.
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String createTableStatement = "CREATE TABLE " + LIQUOR_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_LIQUOR_NAME + " TEXT, " + COLUMN_LIQUOR_TYPE + " TEXT, " + COLUMN_MAX_QUANTITY + " INT, " + COLUMN_CUR_QUANTITY + " INT)";
+        String createTableStatement = "CREATE TABLE " + LIQUOR_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_LIQUOR_NAME + " TEXT, " + COLUMN_LIQUOR_TYPE + " TEXT, " + COLUMN_MAX_NUMOFBOTTLES + " INT, " + COLUMN_CUR_NUMOFBOTTLES + " INT, " + COLUMN_PERCENT + " INT)";
 
         sqLiteDatabase.execSQL(createTableStatement);
     }
@@ -52,8 +53,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         cv.put(COLUMN_LIQUOR_NAME, liquorModel.getName());
         cv.put(COLUMN_LIQUOR_TYPE, liquorModel.getLiquorType());
-        cv.put(COLUMN_MAX_QUANTITY, liquorModel.getMaxQuantity());
-        cv.put(COLUMN_CUR_QUANTITY, liquorModel.getCurQuantity());
+        cv.put(COLUMN_MAX_NUMOFBOTTLES, liquorModel.getMaxNumOfBottles());
+        cv.put(COLUMN_CUR_NUMOFBOTTLES, liquorModel.getCurNumOfBottles());
 
         long insert = db.insert(LIQUOR_TABLE ,null, cv);
 
@@ -66,8 +67,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public List<LiquorModel> getLiquorList(String liquorType){
-        List<LiquorModel> returnList = new ArrayList<>();
+    public ArrayList<LiquorModel> getLiquorList(String liquorType){
+        ArrayList<LiquorModel> returnList = new ArrayList<>();
 
         String querryString = "SELECT * FROM " + LIQUOR_TABLE + " WHERE " + COLUMN_LIQUOR_TYPE + "=" + liquorType;
 
@@ -80,10 +81,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 int liquorID = cursor.getInt(0);
                 String liquorName = cursor.getString(1);
                 String liquorCursorType = cursor.getString(2);
-                int mq = cursor.getInt(3);
-                int cq = cursor.getInt(4);
+                int mb = cursor.getInt(3);
+                int cb = cursor.getInt(4);
+                int prct = cursor.getInt(5);
 
-                LiquorModel newLiquor = new LiquorModel(liquorID, liquorName, liquorCursorType, mq, cq);
+                LiquorModel newLiquor = new LiquorModel(liquorID, liquorName, liquorCursorType, mb, cb, prct);
                 returnList.add(newLiquor);
 
             }while (cursor.moveToNext());

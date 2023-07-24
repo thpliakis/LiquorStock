@@ -12,23 +12,27 @@ public class LiquorModel {
     private int id;
     private String name;
     private String liquorType;
-    private int maxQuantity;
-    private int curQuantity;
+    private int maxNumOfBottles;
+    private int curNumOfBottles;
+    private int percent;
 
-    public LiquorModel(int id, String name, String liquorType, int maxQuantity, int curQuantity) {
+    public LiquorModel(int id, String name, String liquorType, int maxNumOfBottles, int curNumOfBottles, int percent) {
         this.id = id;
         this.name = name;
         this.liquorType = liquorType;
-        this.maxQuantity = maxQuantity;
-        this.curQuantity = curQuantity;
+        this.maxNumOfBottles = maxNumOfBottles;
+        this.curNumOfBottles = curNumOfBottles;
+        this.percent = percent;
+
     }
 
     public LiquorModel(String name,String liquorType) {
         this.name = name;
         this.liquorType = liquorType;
         this.id = 0;
-        this.maxQuantity = 0;
-       this.curQuantity = 0;
+        this.maxNumOfBottles = 0;
+        this.curNumOfBottles = 0;
+        this.percent = 0;
      }
 
     @Override
@@ -36,9 +40,18 @@ public class LiquorModel {
         return "LiquorModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", maxQuantity=" + maxQuantity +
-                ", curQuantity=" + curQuantity +
+                ", maxNumOfBottles=" + maxNumOfBottles +
+                ", curNumOfBottles=" + curNumOfBottles +
+                ", percent =" + percent +
                 '}';
+    }
+
+    public int getPercent() {
+        return percent;
+    }
+
+    public void setPercent(int percent) {
+        this.percent = percent;
     }
 
     public int getId() {
@@ -65,19 +78,19 @@ public class LiquorModel {
         this.name = name;
     }
 
-    public int getMaxQuantity() {
-        return maxQuantity;
+    public int getMaxNumOfBottles() {
+        return maxNumOfBottles;
     }
 
-    public void setMaxQuantity(int maxQuantity) {
-        this.maxQuantity = maxQuantity;
+    public void setMaxNumOfBottles(int maxQuantity) {
+        this.maxNumOfBottles = maxQuantity;
     }
 
-    public int getCurQuantity() {
-        return curQuantity;
+    public int getCurNumOfBottles() {
+        return curNumOfBottles;
     }
 
-    public void setCurQuantity(int curQuantity) {
-        this.curQuantity = curQuantity;
+    public void setCurNumOfBottles(int curNumOfBottles) {
+        this.curNumOfBottles = curNumOfBottles;
     }
 }
