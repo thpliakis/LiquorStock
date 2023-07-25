@@ -71,15 +71,16 @@ public class LiquorActivity extends AppCompatActivity {
 
 
         // Clicking on a item in the list.
-        /*
+
         liquorslistLW.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //showPopupWindowListItem(adapter.getItem(i).getId());
                 showPopupWindowListItem(i);
-                showLiqueursOnListView(LiquorActivity.this);
+                //showLiqueursOnListView(LiquorActivity.this);
             }
         });
-        */
+
 
         // TODO addbtn onclicklistener to add liqueurs on database
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -109,37 +110,42 @@ public class LiquorActivity extends AppCompatActivity {
     }
 
     private void showPopupWindowListItem(int i) {
-        View view = View.inflate(this, R.layout.liquor_popup,null);
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.liquor_popup, null);
+
+
+        // create the popup window
+        int width = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+        int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView,width,height,focusable);
+
         //
-        TextView name = view.findViewById(R.id.liqNamePopup);
+        TextView name = popupView.findViewById(R.id.liqNamePopup);
         //TextView maxStock = view.findViewById(R.id.maxStock);
         //TextView curStoc = view.findViewById(R.id.curStock);
-        EditText edtMaxStock = view.findViewById(R.id.numMaxStock);
-        EditText edtCurStock = view.findViewById(R.id.numCurStock);
-        Button done = view.findViewById(R.id.btnDone);
-        ImageButton dltbtn = view.findViewById(R.id.dltbtn);
+        //EditText edtMaxStock = popupView.findViewById(R.id.numMaxStock);
+       // EditText edtCurStock = popupView.findViewById(R.id.numCurStock);
+        final Button done = popupView.findViewById(R.id.btnDone);
+        ImageButton dltbtn = popupView.findViewById(R.id.dltbtn);
         //
 
         name.setText(adapter.getItem(i).getName());
+       // edtMaxStock.setHint(adapter.getItem(i).getMaxNumOfBottles());
+        //edtCurStock.setHint(adapter.getItem(i).getCurNumOfBottles());
+        //int ems = parseInt(edtMaxStock.getText().toString());
+       // int ecs = parseInt(edtCurStock.getText().toString());
 
-        edtMaxStock.setHint(adapter.getItem(i).getMaxNumOfBottles());
-        edtCurStock.setHint(adapter.getItem(i).getCurNumOfBottles());
+       // edtMaxStock.setHint(ems);
+      //  edtCurStock.setHint(ecs);
 
-        //
-        int width = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-        int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-        PopupWindow popupWindow = new PopupWindow(view ,width, height, false);
-        //
-
-        popupWindow.showAtLocation(lAct_parent, Gravity.CENTER,0,0);
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
 
         // TODO notify changes
-
-        int ems = parseInt(edtMaxStock.getText().toString());
-        int ecs = parseInt(edtCurStock.getText().toString());
-
-        edtMaxStock.setHint(ems);
-        edtCurStock.setHint(ecs);
+;
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,41 +154,36 @@ public class LiquorActivity extends AppCompatActivity {
             }
         });
 
-        setOnClick(dltbtn,i);
-        /*
-        dltbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupWindowConfirmation();
-            }
-        });
-         */
-    }
 
-    // I made this method because i want to pass i to setOnClickListener, which is the position of the liquorModel in the listView
-    // and so i can delete it
-    private void setOnClick(final ImageButton dltbtn, final int i){
+        //add to database
         dltbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 showPopupWindowConfirmation(i);
+                popupWindow.dismiss();
             }
         });
+
     }
 
     private void showPopupWindowConfirmation(int i){
-        View view = View.inflate(this, R.layout.dlt_confirmation_popup,null);
 
-        Button y = view.findViewById(R.id.yesbtn);
-        Button n = view.findViewById(R.id.nobtn);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.dlt_confirmation_popup, null);
 
-        //
+
+        // create the popup window
         int width = ConstraintLayout.LayoutParams.WRAP_CONTENT;
         int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-        PopupWindow popupWindow = new PopupWindow(view ,width, height, false);
-        //
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView,width,height,focusable);
 
-        popupWindow.showAtLocation(lAct_parent, Gravity.CENTER,0,0);
+        Button y = popupView.findViewById(R.id.yesbtn);
+        Button n = popupView.findViewById(R.id.nobtn);
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
 
         y.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,16 +223,13 @@ public class LiquorActivity extends AppCompatActivity {
         // which view you pass in doesn't matter, it is only used for the window tolken
         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
 
-
-        /*
-        // dismiss the popup window when touched
+        // add a liquor at database
         add.setOnClickListener(view -> {
             // TODO add entry to database
-            //dataBaseHelper.addLiquorItem(new LiquorModel(liqName, liquorType));
-            popupWindow.dismiss();
+            dataBaseHelper.addLiquorItem(new LiquorModel(edtname.getText().toString(), liquorType));
         });
 
-
+        /*
         View view = View.inflate(this, R.layout.liquor_add_popup,null);
 
         //
