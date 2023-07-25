@@ -77,6 +77,7 @@ public class LiquorActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //showPopupWindowListItem(adapter.getItem(i).getId());
                 showPopupWindowListItem(i);
+                //liquorslistLW.invalidateViews();
                 //showLiqueursOnListView(LiquorActivity.this);
             }
         });
@@ -90,13 +91,14 @@ public class LiquorActivity extends AppCompatActivity {
                 try {
                     //Toast.makeText(LiquorActivity.this, liquorType, Toast.LENGTH_LONG).show();
                     showPopupWindowAddBtn();
+                    //showLiqueursOnListView(LiquorActivity.this);
 
                 }catch (Exception e){
 
                     Toast.makeText(LiquorActivity.this, "something is wrong", Toast.LENGTH_LONG).show();
                 }
                 //showPopupWindowAddBtn();
-                //showLiqueursOnListView(LiquorActivity.this);
+
             }
         });
 
@@ -189,6 +191,7 @@ public class LiquorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dataBaseHelper.deleteLiquor(adapter.getItem(i));
+                showLiqueursOnListView(LiquorActivity.this);
                 popupWindow.dismiss();
             }
         });
@@ -227,6 +230,7 @@ public class LiquorActivity extends AppCompatActivity {
         add.setOnClickListener(view -> {
             // TODO add entry to database
             dataBaseHelper.addLiquorItem(new LiquorModel(edtname.getText().toString(), liquorType));
+            showLiqueursOnListView(LiquorActivity.this);
         });
 
         /*
