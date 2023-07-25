@@ -2,7 +2,7 @@
     <string name="app_name">LiquorStock</string>
     <string name="liquorName">Name</string>
     <string name="LiquorQuantity">Quantity</string>
-    <string name="confdltquery">Are you sure you want to delete liquor?</string>
+    <string name="confdltquery">Are you sure you want to delete?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="maxStock">Maximum Stock</string>

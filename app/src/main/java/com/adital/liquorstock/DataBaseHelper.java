@@ -4,10 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,26 +31,49 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CUR_NUMOFBOTTLES = "CUR_NUMOFBOTTLES";
     public static final String COLUMN_ID = "ID";
     public static final String COLUMN_PERCENT = "PERCENT";
+    public static final String DATABASE_NAME = "LiquorStock";
 
     public DataBaseHelper(@Nullable Context context) {
-        super(context, "liquor.db", null, 1);
+        super(context, DATABASE_NAME, null, 1);
     }
 
     // This method is called the first time the database is accessed. There should be code to create a new database.
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String createTableStatement = "CREATE TABLE " + LIQUOR_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_LIQUOR_NAME + " TEXT, " + COLUMN_LIQUOR_TYPE + " TEXT, " + COLUMN_MAX_NUMOFBOTTLES + " INT, " + COLUMN_CUR_NUMOFBOTTLES + " INT, " + COLUMN_PERCENT + " INT)";
+        try {
+            String createTableStatement = "CREATE TABLE " + LIQUOR_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_LIQUOR_NAME + " TEXT, " + COLUMN_LIQUOR_TYPE + " TEXT, " + COLUMN_MAX_NUMOFBOTTLES + " INT, " + COLUMN_CUR_NUMOFBOTTLES + " INT, " + COLUMN_PERCENT + " INT)";
+            sqLiteDatabase.execSQL(createTableStatement);
+        } catch (SQLiteException e) {
+            try {
+                throw new IOException(e);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
 
-        sqLiteDatabase.execSQL(createTableStatement);
     }
 
     // This method is called if the database versiuon  number changes. It prevents previous users apps from breaking when you change the database design.
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+LIQUOR_TABLE);
+        onCreate(sqLiteDatabase);
     }
 
     public boolean addLiquorItem(LiquorModel liquorModel){
+
+       try {
+            if (CheckIsDataAlreadyInDBorNot(LIQUOR_TABLE, COLUMN_LIQUOR_NAME, liquorModel.getName())) {
+                return false;
+            }
+        } catch (SQLiteException e) {
+            try {
+                throw new IOException(e);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+
         SQLiteDatabase db = this.getWritableDatabase();  // get this database we have created
         ContentValues cv = new ContentValues(); // Associate values, hashmap
 
@@ -55,6 +81,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_LIQUOR_TYPE, liquorModel.getLiquorType());
         cv.put(COLUMN_MAX_NUMOFBOTTLES, liquorModel.getMaxNumOfBottles());
         cv.put(COLUMN_CUR_NUMOFBOTTLES, liquorModel.getCurNumOfBottles());
+        cv.put(COLUMN_PERCENT,liquorModel.getPercent());
 
         long insert = db.insert(LIQUOR_TABLE ,null, cv);
 
@@ -67,13 +94,26 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean CheckIsDataAlreadyInDBorNot(String TableName, String dbfield, String fieldValue) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query = "SELECT * FROM " +TableName + " WHERE " + dbfield + " =?";
+        Cursor cursor = db.rawQuery(Query, new String[] {fieldValue});
+        if(cursor.getCount() <= 0){
+            db.close();
+            cursor.close();
+            return false;
+        }
+        db.close();
+        cursor.close();
+        return true;
+    }
+
     public ArrayList<LiquorModel> getLiquorList(String liquorType){
         ArrayList<LiquorModel> returnList = new ArrayList<>();
-
-        String querryString = "SELECT * FROM " + LIQUOR_TABLE + " WHERE " + COLUMN_LIQUOR_TYPE + "=" + liquorType;
-
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(querryString, null);
+
+        String Query = "SELECT * FROM " + LIQUOR_TABLE + " WHERE " + COLUMN_LIQUOR_TYPE + " =?";
+        Cursor cursor = db.rawQuery(Query, new String[] {liquorType});
 
         if(cursor.moveToFirst()){
             //loop through the results and put them in a list

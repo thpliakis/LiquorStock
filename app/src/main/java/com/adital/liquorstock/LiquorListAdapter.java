@@ -40,7 +40,7 @@ public class LiquorListAdapter extends ArrayAdapter<LiquorModel> {
         TextView liquorModelIV = listItemLiquor.findViewById(R.id.liquorCurNumOfBottles);
 
         liquorModelTV.setText(liquorModel.getName());
-        liquorModelIV.setText(liquorModel.getCurNumOfBottles());
+        liquorModelIV.setText(Integer.toString(liquorModel.getCurNumOfBottles()));
         return listItemLiquor;
     }
 }

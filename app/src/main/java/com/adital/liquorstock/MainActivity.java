@@ -1,7 +1,6 @@
 package com.adital.liquorstock;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private GridView liquorsGV;
     ArrayList<Liquor> liquorArrayList = new ArrayList<Liquor>();
+    Intent intent ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +45,12 @@ public class MainActivity extends AppCompatActivity {
         LiquorAdapter adapter = new LiquorAdapter(this, liquorArrayList);
         liquorsGV.setAdapter(adapter);
 
-        liquorsGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                /* Todo navigate user to liquor activity */
-                //liquorsGV.get
-                //Toast.makeText(MainActivity.this ,"Hello world " + adapter.getItem(i).getLiquor_name(),Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(MainActivity.this, LiquorActivity.class);
-                intent.putExtra("liquorType", adapter.getItem(i).getId());
-                startActivity(intent);
-            }
+        liquorsGV.setOnItemClickListener((adapterView, view, i, l) -> {
+            /* Todo navigate user to liquor activity */
+            //Toast.makeText(MainActivity.this ,"LiquorType : " + adapter.getItem(i).getLiquor_name(),Toast.LENGTH_LONG).show();
+            intent = new Intent(MainActivity.this, LiquorActivity.class);
+            intent.putExtra("liquorType", adapter.getItem(i).getLiquor_name());
+            startActivity(intent);
         });
 
 
