@@ -58,17 +58,7 @@ public class LiquorActivity extends AppCompatActivity {
         dataBaseHelper = new DataBaseHelper(LiquorActivity.this);
         try{
             // Adapter for listView
-            adapter = new LiquorListAdapter(this, dataBaseHelper.getLiquorList(liquorType));
-            liquorslistLW.setAdapter(adapter);
-
-            //showLiqueursOnListView(LiquorActivity.this); // Show listView with liquorListAdapter
-            //boolean b = dataBaseHelper.addLiquorItem(new LiquorModel("Mhtsos","Beer"));
-            //Toast.makeText(LiquorActivity.this, String.valueOf(b), Toast.LENGTH_SHORT).show();
-            //Toast.makeText(LiquorActivity.this, dataBaseHelper.getLiquorList(liquorType).toString(), Toast.LENGTH_LONG).show();
-            //Toast.makeText(LiquorActivity.this, String.valueOf(b), Toast.LENGTH_SHORT).show();
-            //Toast.makeText(LiquorActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
-
-
+            showLiqueursOnListView(LiquorActivity.this); // Show listView with liquorListAdapter
         }catch (Exception e){
             Toast.makeText(LiquorActivity.this, "something is wrong", Toast.LENGTH_SHORT).show();
         }
