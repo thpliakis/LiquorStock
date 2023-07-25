@@ -122,7 +122,7 @@ public class LiquorActivity extends AppCompatActivity {
         int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView,width,height,focusable);
-
+        popupWindow.setElevation(20);
         //
         TextView name = popupView.findViewById(R.id.liqNamePopup);
         //TextView maxStock = view.findViewById(R.id.maxStock);
@@ -179,7 +179,7 @@ public class LiquorActivity extends AppCompatActivity {
         int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView,width,height,focusable);
-
+        popupWindow.setElevation(20);
         Button y = popupView.findViewById(R.id.yesbtn);
         Button n = popupView.findViewById(R.id.nobtn);
 
@@ -216,7 +216,7 @@ public class LiquorActivity extends AppCompatActivity {
         int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView,width,height,focusable);
-
+        popupWindow.setElevation(20);
         EditText edtname = popupView.findViewById(R.id.editTextName);
         EditText edtmaxNumOfB = popupView.findViewById(R.id.editTextMaxNumB);
         EditText edtCurOfB = popupView.findViewById(R.id.editTextCurNumB);
