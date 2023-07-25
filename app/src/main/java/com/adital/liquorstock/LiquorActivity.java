@@ -7,12 +7,18 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,7 +37,7 @@ import java.util.ArrayList;
 
 public class LiquorActivity extends AppCompatActivity {
 
-    RelativeLayout lAct_parent;
+    ConstraintLayout lAct_parent;
     private ListView liquorslistLW;
     private ImageButton addBtn;
     private  String liquorType;
@@ -42,17 +48,17 @@ public class LiquorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liquor);
 
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             liquorType = extras.getString("liquorType");
         }
 
-        TextView liqBar = findViewById(R.id.liquorsBar);
-        liqBar.setText(liquorType);
+        //TextView liqBar = findViewById(R.id.liquorsBar);
+        //liqBar.setText(liquorType);
         lAct_parent = findViewById(R.id.lAct_parent);
         liquorslistLW = findViewById(R.id.liquorsList);
         addBtn = findViewById(R.id.addbtn);
-
 
         // Fetch the list of liqueurs
         dataBaseHelper = new DataBaseHelper(LiquorActivity.this);
@@ -79,8 +85,11 @@ public class LiquorActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 try {
-                    Toast.makeText(LiquorActivity.this, liquorType, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(LiquorActivity.this, liquorType, Toast.LENGTH_LONG).show();
+                    showPopupWindowAddBtn();
+
                 }catch (Exception e){
 
                     Toast.makeText(LiquorActivity.this, "something is wrong", Toast.LENGTH_LONG).show();
@@ -193,6 +202,36 @@ public class LiquorActivity extends AppCompatActivity {
     }
 
     private void showPopupWindowAddBtn(){
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.liquor_add_popup, null);
+
+
+        // create the popup window
+        int width = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+        int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView,width,height,focusable);
+
+        EditText edtname = popupView.findViewById(R.id.editTextName);
+        EditText edtmaxNumOfB = popupView.findViewById(R.id.editTextMaxNumB);
+        EditText edtCurOfB = popupView.findViewById(R.id.editTextCurNumB);
+        final Button add = (Button) popupView.findViewById(R.id.addbtn2);
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+
+
+        /*
+        // dismiss the popup window when touched
+        add.setOnClickListener(view -> {
+            // TODO add entry to database
+            //dataBaseHelper.addLiquorItem(new LiquorModel(liqName, liquorType));
+            popupWindow.dismiss();
+        });
+
+
         View view = View.inflate(this, R.layout.liquor_add_popup,null);
 
         //
@@ -224,5 +263,6 @@ public class LiquorActivity extends AppCompatActivity {
                 popupWindow.dismiss();
             }
         });
+        */
     }
 }
